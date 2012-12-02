@@ -7,11 +7,4 @@
     <constant name="struts.enable.DynamicMethodInvocation"
         value="false" />
     <constant name="struts.devMode" value="false" />
-
-    <package name="default" extends="struts-default" namespace="/">
-        <action name="list" method="list"
-            class="net.unit8.bootstrap.customize.action.IndexAction">
-            <result type="freemarker" name="success">/WEB-INF/ftl/index.ftl</result>
-        </action>
-    </package>
 </struts>

@@ -9,6 +9,10 @@
   <packaging>war</packaging>
 
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -29,5 +33,16 @@
         </exclusion>
     </exclusions>
   	</dependency>
+		<dependency>
+			<groupId>net.sourceforge.winstone</groupId>
+			<artifactId>winstone-lite</artifactId>
+			<version>0.9.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jsp_2.1_spec</artifactId>
+			<version>1.0.1</version>
+		</dependency>
   </dependencies>
 </project>
