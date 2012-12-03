@@ -46,7 +46,6 @@ public class BootstrapAction extends ActionSupport {
 
 		try {
 			String css = compileBootstrapLess();
-			System.out.println(css);
 			setInputStream(new ByteArrayInputStream(css.getBytes()));
 			return SUCCESS;
 		} catch(LessException ex) {
@@ -57,8 +56,8 @@ public class BootstrapAction extends ActionSupport {
 
 	protected String compileBootstrapLess() throws IOException, LessException {
 		File customizeBase = new File(BOOTSTRAP_DIR, "../bootstrap-custom-base.less");
-		if (!customizeBase.exists()) {
-			InputStream in = this.getClass().getClassLoader().getResourceAsStream("/bootstrap-custom-base.less");
+		if (!customizeBase.exists() || customizeBase.length() == 0) {
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("bootstrap-custom-base.less");
 			try {
 				FileUtils.copyInputStreamToFile(in, customizeBase);
 			} finally {

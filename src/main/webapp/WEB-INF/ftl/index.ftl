@@ -7,6 +7,9 @@
 	<script src="/js/jquery-1.8.3.min.js"></script>
 	<script src="/js/underscore-1.4.2.min.js"></script>
 	<script src="/js/backbone-0.9.2.min.js"></script>
+	<script src="/js/bootstrap-modal.js"></script>
+	<script src="/js/handlebars-1.0.rc1.js"></script>
+	<script src="/js/handlebars-loader-0.1.0.js"></script>
 	<script src="/js/machida.js"></script>
 </head>
 <body>
@@ -27,5 +30,14 @@
 		おおおお
 		</div>
 	</div>
+		<script>
+Handlebars.TemplateLoader.load(["dialog"], {
+	complete: function() {
+		var router = new CustomizeBootstrap();
+		Backbone.history.start();
+	}
+});
+	</script>
+
 </body>
 </html>
