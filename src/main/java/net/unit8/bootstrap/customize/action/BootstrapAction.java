@@ -1,5 +1,6 @@
 package net.unit8.bootstrap.customize.action;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +47,8 @@ public class BootstrapAction extends ActionSupport {
 
 		try {
 			String css = compileBootstrapLess();
-			setInputStream(new ByteArrayInputStream(css.getBytes()));
+			setInputStream(new BufferedInputStream(
+					new ByteArrayInputStream(css.getBytes())));
 			return SUCCESS;
 		} catch(LessException ex) {
 			ex.printStackTrace();

@@ -1,0 +1,45 @@
+.fixed-bottom {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin-right:auto;
+	margin-left: auto;
+	background-color: rgba(255,255,255,.5);
+}
+
+ul.color-chips {
+	list-style: none;
+}
+
+ul.color-chips li {
+	float: left;
+	margin: 0;
+}
+
+ul.color-chips li a {
+	float: left;
+	width: 23px;
+	height:12px;
+	text-indent: -9999px;
+	background-image: url(images/glass-light.png);
+	background-repeat: repeat-x;
+	background-position: 0 50%;
+}
+
+ul.color-chips li:first-child a {
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+ul.color-chips li:last-child a {
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
