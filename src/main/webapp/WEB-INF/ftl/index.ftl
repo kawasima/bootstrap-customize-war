@@ -6,9 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css.action"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	<script src="/js/jquery-1.8.3.min.js"></script>
+	<script src="/js/jquery-ui-1.9.2.min.js"></script>
 	<script src="/js/underscore-1.4.2.min.js"></script>
 	<script src="/js/backbone-0.9.2.min.js"></script>
-	<script src="/js/bootstrap-carousel.js"></script>
+	<script src="/js/jquery.carouFredSel-6.1.0.min.js"></script>
 	<script src="/js/handlebars-1.0.rc1.js"></script>
 	<script src="/js/handlebars-loader-0.1.0.js"></script>
 	<script src="/js/machida.js"></script>

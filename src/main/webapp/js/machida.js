@@ -34,6 +34,7 @@ var DribbbleColorsView = Backbone.View.extend({
 	},
 	render: function() {
 		this.$el.html(Handlebars.TemplateLoader.merge("dribbble-colors", this.collection.toJSON()));
+		$("li.color", this.$el).draggable({helper: 'clone'});
 	}
 });
 
@@ -48,9 +49,13 @@ var DribbbleShotsView = Backbone.View.extend({
 		this.collection.fetch();
 	},
 	render: function() {
-		$(".carousel-inner", this.$el).html(
+		this.$el.html(
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
-		this.$el.carousel({interval: false});
+		this.$el.carouFredSel({
+			height: 150,
+			width: "100%",
+			responsive: true
+		});
 		return this;
 	},
 	showColors: function(event) {
@@ -66,10 +71,16 @@ var MainDialogView = Backbone.View.extend({
 	},
 	render: function() {
 		if (this.$el.size() == 0) {
-			var dialog = $('<div id="customize-this">aaa</div>').appendTo($("body"));
+			var dialog = $(Handlebars.TemplateLoader.merge("dialog")).appendTo($("body"));
 			this.setElement(dialog);
-			this.$el.html(Handlebars.TemplateLoader.merge("dialog"));
 			this.dribbbleShotsView = new DribbbleShotsView();
+			$("input.color-code", this.$el).droppable({
+				accept: "#dribbble-colors li.color",
+				drop: function(event, ui) {
+					var code = $("a", ui.draggable).attr("title");
+					$(this).val(code).css({backgroundColor: code});
+				}
+			});
 		}
 		return this;
 	}
