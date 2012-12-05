@@ -53,6 +53,7 @@ var DribbbleShotsView = Backbone.View.extend({
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
 		this.$el.carouFredSel({
 			circular: false,
+			infinite: false,
 			width: "100%",
 			height: 150,
 			responsive: true,
