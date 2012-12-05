@@ -1,15 +1,21 @@
 <div id="customize-this" tabindex="-1" class="fixed-bottom">
 	<div class="container-fluid">
-		<div class="row-fluid">
+		<form class="form-inline row-fluid" action="/apply" method="post">
 			<div class="span3">Base color<input type="text" name="base-color" class="color-code"></div>
 			<div class="span3">Main color<input type="text" name="main-color" class="color-code"></div>
 			<div class="span3">Accent color<input type="text" name="accent-color" class="color-code"></div>
-		</div>
+			<div class="span1">
+				<button id="apply-color" class="btn btn-small btn-success">Apply</button>
+			</div>
+		</form>
 		<div id="dribbble-colors" class="row-fluid">
 		</div>
 		<div id="dribbble-shots" class="row-fluid">
-			<div id="dribbble-shots-carousel" class="carousel slide">
+			<div id="dribbble-shots-carousel">
 			</div>
+			<div class="clearfix"></div>
+    		<a id="shots-prev"  class="prev left carousel-control" href="#">&lsaquo;</a>
+		    <a id="shots-next" href="#" class="next right carousel-control">&rsaquo;</a>
 		</div>
 	</div>
 </div>

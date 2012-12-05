@@ -42,7 +42,7 @@ var DribbbleShotsView = Backbone.View.extend({
 	events: {
 		"click a.dribbble-shot": "showColors"
 	},
-	el: "#dribbble-shots .carousel",
+	el: "#dribbble-shots-carousel",
 	initialize: function() {
 		this.collection = new DribbbleShots();
 		this.collection.bind('reset', this.render, this);
@@ -52,9 +52,13 @@ var DribbbleShotsView = Backbone.View.extend({
 		this.$el.html(
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
 		this.$el.carouFredSel({
-			height: 150,
+			circular: false,
 			width: "100%",
-			responsive: true
+			height: 150,
+			responsive: true,
+			auto: { play: false },
+			prev: { button: "#shots-prev", key: "left" },
+			next: { button: "#shots-next", key: "right" }
 		});
 		return this;
 	},
@@ -65,6 +69,9 @@ var DribbbleShotsView = Backbone.View.extend({
 });
 
 var MainDialogView = Backbone.View.extend({
+	events: {
+		"click #apply-color": "applyColors"
+	},
 	el: "#customize-this",
 	initialize: function() {
 		this.render();
@@ -83,6 +90,9 @@ var MainDialogView = Backbone.View.extend({
 			});
 		}
 		return this;
+	},
+	applyColors: function(e) {
+		$("form", this.$el).submit();
 	}
 });
 
