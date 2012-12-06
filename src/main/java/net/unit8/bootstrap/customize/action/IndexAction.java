@@ -2,9 +2,16 @@ package net.unit8.bootstrap.customize.action;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import net.unit8.bootstrap.customize.config.ApplicationConfig;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 
@@ -16,17 +23,47 @@ public class IndexAction extends ActionSupport {
 	private String mainColor;
 	private String accentColor;
 
-	private static final File BOOTSTRAP_DIR = new File("target/less/bootstrap");
+	private static final Pattern VARIABLE_DEFINITION_PTN = Pattern.compile("@\\w+:\\s*(#[A-Fa-f0-9]+)\\s*;");
 
-	public String execute() throws Exception {
-        return SUCCESS;
+	public String execute() {
+		File customizeBase = ApplicationConfig.instance().getBaseLessFile();
+		try {
+			if (!customizeBase.exists() || customizeBase.length() == 0) {
+				setBaseColor("#d9d5d9");
+				setMainColor("#5b554d");
+				setAccentColor("#b11a2c");
+			} else {
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(
+								new FileInputStream(customizeBase)));
+				try {
+					while(true) {
+						String line = reader.readLine();
+						if (line == null || hasSetAllColors())
+							break;
+						if (line.startsWith("@baseColor:")) {
+							setBaseColor(findLessVariable(line));
+						} else if (line.startsWith("@mainColor:")) {
+							setMainColor(findLessVariable(line));
+						} else if (line.startsWith("@accentColor:")) {
+							setAccentColor(findLessVariable(line));
+						}
+					}
+				} finally {
+					IOUtils.closeQuietly(reader);
+				}
+			}
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
     }
 
     @Action(value="apply", results={
     	@Result(name="success", type="redirect", location="/")
     })
     public String apply() {
-		File customizeBase = new File(BOOTSTRAP_DIR, "../bootstrap-custom-base.less");
+		File customizeBase = ApplicationConfig.instance().getBaseLessFile();
 		try {
 			StringBuilder newLess = new StringBuilder();
 			BufferedReader reader = new BufferedReader(
@@ -35,11 +72,11 @@ public class IndexAction extends ActionSupport {
 				String line = reader.readLine();
 				if (line == null)
 					break;
-				if (line.startsWith("@baseColor")) {
+				if (line.startsWith("@baseColor:")) {
 					newLess.append("@baseColor: ").append(baseColor).append(";\n");
-				} else if (line.startsWith("@mainColor")) {
+				} else if (line.startsWith("@mainColor:")) {
 					newLess.append("@mainColor: ").append(mainColor).append(";\n");
-				} else if (line.startsWith("@accentColor")) {
+				} else if (line.startsWith("@accentColor:")) {
 					newLess.append("@accentColor: ").append(accentColor).append(";\n");
 				} else {
 					newLess.append(line).append("\n");
@@ -76,5 +113,16 @@ public class IndexAction extends ActionSupport {
 		this.accentColor = accentColor;
 	}
 
+	private boolean hasSetAllColors() {
+		return baseColor != null && mainColor != null && accentColor != null;
+	}
 
+	private String findLessVariable(String line) {
+		Matcher m = VARIABLE_DEFINITION_PTN.matcher(line);
+		if (m.find()) {
+			String value = m.group(1);
+			return value;
+		}
+		throw new IllegalArgumentException("Match failure: " + line);
+	}
 }

@@ -1,9 +1,9 @@
 <div id="customize-this" tabindex="-1" class="fixed-bottom">
 	<div class="container-fluid">
 		<form class="form-inline row-fluid" action="/apply" method="post">
-			<div class="span3">Base color<input type="text" name="baseColor" class="color-code"></div>
-			<div class="span3">Main color<input type="text" name="mainColor" class="color-code"></div>
-			<div class="span3">Accent color<input type="text" name="accentColor" class="color-code"></div>
+			<div class="span3">Base color<input type="text" name="baseColor" class="color-code" value="{{baseColor}}" style="background-color: {{baseColor}};"/></div>
+			<div class="span3">Main color<input type="text" name="mainColor" class="color-code" value="{{mainColor}}" style="background-color: {{mainColor}};"/></div>
+			<div class="span3">Accent color<input type="text" name="accentColor" class="color-code" value="{{accentColor}}" style="background-color: {{accentColor}};"/></div>
 			<div class="span1">
 				<button id="apply-color" class="btn btn-small btn-success">Apply</button>
 			</div>

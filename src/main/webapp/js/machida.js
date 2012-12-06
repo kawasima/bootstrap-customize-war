@@ -52,8 +52,8 @@ var DribbbleShotsView = Backbone.View.extend({
 		this.$el.html(
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
 		this.$el.carouFredSel({
-			circular: false,
-			infinite: false,
+			circular: true,
+			scroll: { items: 1, fx: "none" },
 			width: "100%",
 			height: 150,
 			responsive: true,
@@ -79,7 +79,11 @@ var MainDialogView = Backbone.View.extend({
 	},
 	render: function() {
 		if (this.$el.size() == 0) {
-			var dialog = $(Handlebars.TemplateLoader.merge("dialog")).appendTo($("body"));
+			var dialog = $(Handlebars.TemplateLoader.merge("dialog", {
+				baseColor:   $('head meta[property=bootstrap\\:baseColor]').attr("content"),
+				mainColor:   $('head meta[property=bootstrap\\:mainColor]').attr("content"),
+				accentColor: $('head meta[property=bootstrap\\:accentColor]').attr("content")
+			})).appendTo($("body"));
 			this.setElement(dialog);
 			this.dribbbleShotsView = new DribbbleShotsView();
 			$("input.color-code", this.$el).droppable({
@@ -89,6 +93,7 @@ var MainDialogView = Backbone.View.extend({
 					$(this).val(code).css({backgroundColor: code});
 				}
 			});
+
 		}
 		return this;
 	},
