@@ -7,8 +7,28 @@
 	background-color: rgba(255,255,255,.5);
 }
 
+#dribbble-shots {
+	position: relative;
+}
+#dribbble-colors {
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+span.arrow-up {
+  width:0px;
+  height:0px;
+  border-left:6px solid transparent;  /* left arrow slant */
+  border-right:6px solid transparent; /* right arrow slant */
+  border-bottom:6px solid #2f2f2f; /* bottom, add background color here */
+  font-size:0px;
+  line-height:0px;
+  display: inline-block;
+}
+
 ul.color-chips {
 	list-style: none;
+	display: inline-block;
 }
 
 ul.color-chips li {
@@ -18,8 +38,8 @@ ul.color-chips li {
 
 ul.color-chips li a {
 	float: left;
-	width: 23px;
-	height:12px;
+	width: 40px;
+	height:32px;
 	text-indent: -9999px;
 	background-image: url(images/glass-light.png);
 	background-repeat: repeat-x;

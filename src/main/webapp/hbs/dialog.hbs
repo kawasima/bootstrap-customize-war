@@ -1,12 +1,21 @@
 <div id="customize-this" tabindex="-1" class="fixed-bottom">
 	<div class="container-fluid">
-		<form class="form-inline row-fluid" action="/apply" method="post">
-			<div class="span3">Base color<input type="text" name="baseColor" class="color-code" value="{{baseColor}}" style="background-color: {{baseColor}};"/></div>
-			<div class="span3">Main color<input type="text" name="mainColor" class="color-code" value="{{mainColor}}" style="background-color: {{mainColor}};"/></div>
-			<div class="span3">Accent color<input type="text" name="accentColor" class="color-code" value="{{accentColor}}" style="background-color: {{accentColor}};"/></div>
-			<div class="span1">
-				<button id="apply-color" class="btn btn-small btn-success">Apply</button>
+		<button id="apply-color" class="btn btn-success pull-right">Apply</button>
+		<form class="row-fluid" style="margin-bottom: 0;" action="/apply" method="post">
+			<div class="span3"/>
+			<div class="span2">
+				<label for="base-color">Base</label>
+				<input type="text" id="base-color" name="baseColor" class="input-small color-code" value="{{baseColor}}" style="background-color: {{baseColor}};"/>
 			</div>
+			<div class="span2">
+				<label for="main-color">Main</label>
+				<input type="text" id="main-color" name="mainColor" class="input-small color-code" value="{{mainColor}}" style="background-color: {{mainColor}};"/>
+			</div>
+			<div class="span2">
+				<label for="accent-color">Accent</label>
+				<input type="text" id="accent-color" name="accentColor" class="input-small color-code" value="{{accentColor}}" style="background-color: {{accentColor}};"/>
+			</div>
+			<div class="span3"/>
 		</form>
 		<div id="dribbble-colors" class="row-fluid">
 		</div>

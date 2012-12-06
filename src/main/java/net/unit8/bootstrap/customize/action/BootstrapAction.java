@@ -1,7 +1,6 @@
 package net.unit8.bootstrap.customize.action;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
