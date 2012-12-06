@@ -18,7 +18,7 @@
 	<script src="/js/app.js"></script>
 </head>
 <body>
-<#include "example.html" parse=false>
+<#include examplePath parse=false>
 		<script>
 Handlebars.TemplateLoader.load(["dialog", "dribbble-shots", "dribbble-colors"], {
 	complete: function() {

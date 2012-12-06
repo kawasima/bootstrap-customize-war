@@ -11,6 +11,7 @@ public class ApplicationConfig implements Serializable {
 		lessDirectory = new File("target/less");
 		baseLessFile  = new File(lessDirectory, "bootstrap-custom-base.less");
 		cssOutputFile = new File("target/css/bootstrap-custom.css");
+		setTemplatePath(null);
 	}
 
 	public static ApplicationConfig instance() {
@@ -23,6 +24,7 @@ public class ApplicationConfig implements Serializable {
 	private File baseLessFile;
 	private File lessDirectory;
 	private File cssOutputFile;
+	private File templatePath;
 
 	public File getBaseLessFile() {
 		return baseLessFile;
@@ -50,5 +52,13 @@ public class ApplicationConfig implements Serializable {
 
 	public File getBootstrapDirectory() {
 		return new File(lessDirectory, "bootstrap");
+	}
+
+	public File getTemplatePath() {
+		return templatePath;
+	}
+
+	public void setTemplatePath(File templatePath) {
+		this.templatePath = templatePath;
 	}
 }
