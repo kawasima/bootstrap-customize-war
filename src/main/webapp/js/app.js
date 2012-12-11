@@ -46,22 +46,38 @@ var DribbbleShotsView = Backbone.View.extend({
 	initialize: function() {
 		this.collection = new DribbbleShots();
 		this.collection.bind('reset', this.render, this);
+		this.collection.bind('add', this.addItem, this);
 		this.collection.fetch();
+		this.page = 0;
 	},
 	render: function() {
+		var self = this;
 		this.$el.html(
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
 		this.$el.carouFredSel({
-			circular: true,
+			circular: false,
+			infinite: false,
 			scroll: { items: 1, fx: "none" },
-			width: "100%",
+			width: "variable",
 			height: 150,
+			items: { visible: "variable" },
 			responsive: true,
 			auto: { play: false },
 			prev: { button: "#shots-prev", key: "left" },
-			next: { button: "#shots-next", key: "right" }
+			next: { button: "#shots-next", key: "right",
+				onAfter: function() {
+					if (self.$el.children().length <=
+						self.$el.triggerHandler("currentPosition")
+						+ self.$el.triggerHandler("currentVisible").length) {
+						self.collection.fetch({ add: true, data: { page: self.page++ }});
+					}
+				}
+			}
 		});
 		return this;
+	},
+	addItem: function(model) {
+		this.$el.trigger("insertItem", Handlebars.TemplateLoader.merge("dribbble-shots", [model.toJSON()]));
 	},
 	showColors: function(event) {
 		var url = $(event.target).parent().attr("data-url");
