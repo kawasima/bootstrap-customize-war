@@ -13,6 +13,8 @@
 
 #dribbble-shots a.dribbble-shot {
 	display: block;
+	float: left;
+	width: 200px;
 }
 #dribbble-colors {
 	padding-bottom: 5px;

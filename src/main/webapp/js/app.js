@@ -56,20 +56,19 @@ var DribbbleShotsView = Backbone.View.extend({
 				Handlebars.TemplateLoader.merge("dribbble-shots", this.collection.toJSON()));
 		this.$el.carouFredSel({
 			circular: false,
-			infinite: false,
-			scroll: { items: 1, fx: "none" },
+			infinite: true,
+			auto: false,
 			width: "variable",
 			height: 150,
 			items: { visible: "variable" },
-			responsive: true,
-			auto: { play: false },
+//			responsive: true,
 			prev: { button: "#shots-prev", key: "left" },
 			next: { button: "#shots-next", key: "right",
 				onAfter: function() {
 					if (self.$el.children().length <=
 						self.$el.triggerHandler("currentPosition")
 						+ self.$el.triggerHandler("currentVisible").length) {
-						self.collection.fetch({ add: true, data: { page: self.page++ }});
+						self.collection.fetch({ add: true, data: { page: ++self.page }});
 					}
 				}
 			}
