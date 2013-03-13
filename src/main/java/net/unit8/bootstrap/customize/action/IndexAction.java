@@ -8,13 +8,17 @@ import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
+
 import net.unit8.bootstrap.customize.config.ApplicationConfig;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
@@ -111,6 +115,17 @@ public class IndexAction extends ActionSupport {
 
 	public void setAccentColor(String accentColor) {
 		this.accentColor = accentColor;
+	}
+
+	public String getExamplePath() {
+		ServletContext context = (ServletContext) ActionContext
+				.getContext().get(StrutsStatics.SERVLET_CONTEXT);
+		String templatePath = context.getInitParameter("templatePath");
+		if (templatePath == null) {
+			return "example.html";
+		} else {
+			return "/example.html";
+		}
 	}
 
 	private boolean hasSetAllColors() {
