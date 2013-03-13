@@ -1,24 +1,12 @@
 package net.unit8.bootstrap.customize.action;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLConnection;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import net.arnx.jsonic.JSON;
 import net.arnx.jsonic.TypeReference;
 import net.arnx.jsonic.util.Base64;
 import net.unit8.bootstrap.customize.config.ApplicationConfig;
 import net.unit8.bootstrap.customize.dto.ReposContentDto;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.struts2.StrutsStatics;
@@ -28,8 +16,13 @@ import org.apache.struts2.convention.annotation.Result;
 import org.lesscss.LessCompiler;
 import org.lesscss.LessException;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLConnection;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Namespace("/css")
@@ -92,7 +85,8 @@ public class BootstrapAction extends ActionSupport {
 		FileUtils.touch(readed);
 	}
 	protected List<ReposContentDto> lessList() throws MalformedURLException, IOException, URISyntaxException {
-		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less?ref=v2.2.1");
+        String version = ApplicationConfig.instance().getBootstrapVersion();
+		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less?ref=v" + version);
 		URLConnection connection = uri.toURL().openConnection();
 		List<ReposContentDto> reposContents = JSON
 				.decode(connection.getInputStream(), new TypeReference<List<ReposContentDto>>() {});
@@ -100,7 +94,8 @@ public class BootstrapAction extends ActionSupport {
 	}
 
 	protected String less(String name) throws MalformedURLException, IOException, URISyntaxException {
-		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less/" + name + "?ref=v2.2.1");
+        String version = ApplicationConfig.instance().getBootstrapVersion();
+		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less/" + name + "?ref=v" + version);
 		URLConnection connection = uri.toURL().openConnection();
 		ReposContentDto reposContent = JSON
 				.decode(connection.getInputStream(), ReposContentDto.class);
