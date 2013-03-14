@@ -18,7 +18,6 @@ import org.lesscss.LessException;
 
 import javax.servlet.ServletContext;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLConnection;
@@ -27,14 +26,14 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Namespace("/css")
 public class BootstrapAction extends ActionSupport {
-	private static LessCompiler compiler = new LessCompiler();
+	private static final LessCompiler compiler = new LessCompiler();
 	private InputStream inputStream;
 
 	@Override
 	@Action(value="bootstrap.css", results={
 			@Result(name="success", type="stream", params={"contentType", "text/css"}),
-			@Result(name="error", location="bootstrap-error.ftl"),
-	})
+			@Result(name="error", location="bootstrap-error.ftl")
+    })
 	public String execute() throws Exception {
 		File bootstrapDir = ApplicationConfig.instance().getBootstrapDirectory();
 		if (!bootstrapDir.exists())
@@ -84,16 +83,16 @@ public class BootstrapAction extends ActionSupport {
 		File readed = new File(bootstrapDir, ".readed");
 		FileUtils.touch(readed);
 	}
-	protected List<ReposContentDto> lessList() throws MalformedURLException, IOException, URISyntaxException {
+	protected List<ReposContentDto> lessList() throws IOException, URISyntaxException {
         String version = ApplicationConfig.instance().getBootstrapVersion();
 		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less?ref=v" + version);
 		URLConnection connection = uri.toURL().openConnection();
-		List<ReposContentDto> reposContents = JSON
-				.decode(connection.getInputStream(), new TypeReference<List<ReposContentDto>>() {});
-		return reposContents;
+        return JSON
+                .decode(connection.getInputStream(), new TypeReference<List<ReposContentDto>>() {
+                });
 	}
 
-	protected String less(String name) throws MalformedURLException, IOException, URISyntaxException {
+	protected String less(String name) throws IOException, URISyntaxException {
         String version = ApplicationConfig.instance().getBootstrapVersion();
 		URI uri = new URI("https://api.github.com/repos/twitter/bootstrap/contents/less/" + name + "?ref=v" + version);
 		URLConnection connection = uri.toURL().openConnection();

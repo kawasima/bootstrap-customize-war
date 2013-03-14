@@ -1,25 +1,18 @@
 package net.unit8.bootstrap.customize.action;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.ServletContext;
-
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import net.unit8.bootstrap.customize.config.ApplicationConfig;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("serial")
 public class IndexAction extends ActionSupport {
@@ -135,8 +128,7 @@ public class IndexAction extends ActionSupport {
 	private String findLessVariable(String line) {
 		Matcher m = VARIABLE_DEFINITION_PTN.matcher(line);
 		if (m.find()) {
-			String value = m.group(1);
-			return value;
+            return m.group(1);
 		}
 		throw new IllegalArgumentException("Match failure: " + line);
 	}

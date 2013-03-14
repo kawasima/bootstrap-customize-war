@@ -1,16 +1,8 @@
 package net.unit8.bootstrap.customize.action;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.opensymphony.xwork2.ActionSupport;
 import net.arnx.jsonic.JSON;
 import net.unit8.bootstrap.customize.dto.DribbbleColorDto;
-
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -19,7 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.opensymphony.xwork2.ActionSupport;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Namespace("/dribbble")
@@ -40,7 +36,7 @@ public class DribbbleShotsAction extends ActionSupport {
 		}
 	}
 
-	protected List<DribbbleColorDto> colors() throws MalformedURLException, IOException, URISyntaxException {
+	protected List<DribbbleColorDto> colors() throws IOException {
 		Document doc = Jsoup.connect(url).get();
 		Elements colorAnchors = doc.select("ul.color-chips li.color a");
 		List<DribbbleColorDto> colors = new ArrayList<DribbbleColorDto>();
